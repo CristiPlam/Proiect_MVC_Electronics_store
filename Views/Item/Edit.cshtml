@@ -1,0 +1,60 @@
+﻿@model Proiect.Models.MyModels.Item
+@{
+    ViewBag.Title = "Update";
+}
+
+<h2>@ViewBag.Title</h2>
+<body style="background-image: url('https://lycoscreative.com/wp-content/uploads/2017/06/wordpress-website-maintenance-service.jpg'); background-repeat: no-repeat; background-size: cover ">
+    @using (Html.BeginForm(actionName: "Edit", controllerName: "Item"))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Put)<!--camp ascuns pentru a retine id-ul obiectului-->@Html.HiddenFor(b => b.Item_id)
+        <br />
+        @Html.Label("Title", "Item name:")
+        <br />
+        @Html.EditorFor(b => b.name, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(b => b.name, "", new { @class = "text-danger" })
+        <br />
+        <br />
+        @Html.Label("Price", "Price:")
+        <br />
+        @Html.Editor("Price", new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(b => b.price, "", new { @class = "text-danger" })
+        <br />
+        <br />
+
+       
+        <br />
+
+        @Html.LabelFor(b => b.CategoriesList, "Choose categories:")
+        <br />
+        for (int i = 0; i < Model.CategoriesList.Count(); i++)
+        {
+            @Html.HiddenFor(b => b.CategoriesList[i].Id)
+            @Html.HiddenFor(b => b.CategoriesList[i].Name)
+            @Html.CheckBoxFor(b => b.CategoriesList[i].Checked)
+            @Html.DisplayFor(b => b.CategoriesList[i].Name)
+            <br />
+        }
+    <br />
+
+        @Html.Label("Description", "Description:")
+        <br />
+        @Html.TextAreaFor(b => b.description, new { @class = "form-control", @rows = "10" })
+        @Html.ValidationMessageFor(b => b.description, "", new { @class = "text-danger" })
+        <br />
+        @Html.Label("Warranty", "Warranty:")
+        <br />
+        @Html.DropDownListFor(b => b.warranty_id, new SelectList(Model.WarrantyList, "Value", "Text"), "Choose a warranty", new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.warranty_id, "", new { @class = "text-danger" })
+        <br />
+        @Html.Label("Vanzare", "Seller:")
+        <br />
+        @Html.DropDownListFor(b => b.Vanzare_id, new SelectList(Model.SellerList, "Value", "Text"), "Choose a seller", new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.Vanzare_id, "", new { @class = "text-danger" })
+        <br />
+        <br />
+        <button class="btn btn-primary" ; style="background-color:orangered" style="color:black">Update</button>
+        <br />
+
+    }
+</body>

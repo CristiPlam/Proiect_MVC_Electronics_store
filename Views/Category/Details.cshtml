@@ -1,0 +1,20 @@
+﻿@model Proiect.Models.MyModels.Item
+@{
+    ViewBag.Title = "Details";
+}
+
+    @if (Model.Items.Count > 0)
+    {
+        @Html.Label("Categories", "Categories:")
+
+        <br />
+        <ul>
+            @foreach (var cat in Model.Items)
+            {
+                <li>@cat.name</li>
+            }
+        </ul>
+    }
+
+<h2>Details</h2>
+

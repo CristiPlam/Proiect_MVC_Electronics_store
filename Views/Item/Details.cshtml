@@ -1,0 +1,103 @@
+﻿@model Proiect.Models.MyModels.Item
+
+@{
+    ViewBag.Title = "Details";
+
+    // declaram si initializam 2 variabile
+    var emptySummaryMsgVar = "This book has no summary";
+    string emptySummaryMsg = "This book has no summary";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<body style="background-image: url('https://cutewallpaper.org/21/computer-shop-background/45+-Web-Store-Wallpaper-on-WallpaperSafari.jpg'); background-repeat: no-repeat; background-size: cover ">
+
+    <div class="panel-body" ; style="background-color: rgba(240,255,255,0.95)">
+        @Html.Label("Title", "Name:")
+        <br />
+        <p>@Model.name</p>
+
+
+        @Html.Label("Price", "Price:")
+        <br />
+        <p>@Model.price LEI</p>
+
+
+        @Html.Label("Description", "Description:")
+        <br />
+        <div class="panel-body">
+            @if (Model.description.IsEmpty())
+            {
+                <!--Modalitati de afisare a unui mesaj-->
+                <p>Item has no description</p>
+                @*Html.Display nu o sa afiseze nimic in acest caz*@
+                @Html.Display("emptySummaryMsgVar")
+            }
+            else
+            {
+                @*Modalitati de a folosi Html.Display, intre "" trebuie pus numele proprietatii*@
+                @*@Html.Display("Summary")*@
+                @Html.DisplayFor(b => b.description)
+            }
+        </div>
+
+        @if (Model.Categories.Count > 0)
+        {
+            @Html.Label("Categories", "Categories:")
+
+            <br />
+            <ul>
+                @foreach (var cat in Model.Categories)
+                {
+                    <li>@cat.name</li>
+                }
+            </ul>
+        }
+
+        @if (Model.Warranty != null)
+        {
+            @Html.Label("Warranty", "Warranty:")
+            <br />
+            @Html.DisplayFor(b => b.Warranty.duration)
+            <br />
+            <br />
+        }
+
+        @if (Model.Vanzare != null)
+        {
+            @Html.Label("Vanzare", "Vanzator:")
+            <br />
+            @Html.DisplayFor(b => b.Vanzare.name)
+            <br />
+            <br />
+        }
+
+        <br />
+        @using (Html.BeginForm(actionName: "Index", controllerName: "Item", method: FormMethod.Get, routeValues: new { id = Model.Item_id }))
+        {
+    <button class="btn btn-primary" ; style="background-color:orangered" style="color:black">Add to Cart</button>
+        }
+
+        <br />
+        <br />
+
+        @using (Html.BeginForm(actionName: "Edit", controllerName: "Item", method: FormMethod.Get, routeValues: new { id = Model.Item_id }))
+        {
+            if (this.User.IsInRole("Admin"))
+            {
+    <button class="btn btn-primary" ; style="background-color:orangered" style="color:black">Update Item</button>
+            }
+        }
+
+        <br />
+        @using (Html.BeginForm(actionName: "Delete", controllerName: "Item", method: FormMethod.Post, routeValues: new { id = Model.Item_id }))
+        {
+            if (this.User.IsInRole("Admin"))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+    <button class="btn btn-primary" ; style="background-color:orangered" style="color:black">Delete</button>
+            }
+        }
+    </div>
+</body>
+

@@ -1,0 +1,55 @@
+﻿@model Proiect.Models.MyModels.Item
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<body style="background-image: url('https://cutewallpaper.org/21/computer-shop-background/45+-Web-Store-Wallpaper-on-WallpaperSafari.jpg'); background-repeat: no-repeat; background-size: cover ">
+    @using (Html.BeginForm(actionName: "New", controllerName: "Item", method: FormMethod.Post))
+    {
+        @Html.Label("Title", "Item name:")
+        <br />
+        @Html.TextBoxFor(b => b.name, null, new { placeholder = "Type in the item's name", @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.name, "", new { @class = "text-danger" })
+        <br />
+        @Html.Label("Price", "Price:")
+        <br />
+        @Html.TextBoxFor(b => b.price, null, new { placeholder = "Type in the item's price with LEI at the end", @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.price, "", new { @class = "text-danger" })
+        <br />
+        @Html.Label("Description", "Item description:")
+        <br />
+        @Html.TextArea("Item description", null, new { placeholder = "Type in the item's description", @class = "form-control", @rows = "10" })
+        @Html.ValidationMessageFor(b => b.description, "", new { @class = "text-danger" })
+        <br />
+
+        @Html.Label("Warranty", "Warranty:")
+        <br />
+        @Html.DropDownListFor(b => b.warranty_id, new SelectList(Model.WarrantyList, "Value", "Text"), "Choose a warranty", new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.warranty_id, "", new { @class = "text-danger" })
+        <br />
+
+        @Html.Label("Vanzare", "Seller:")
+        <br />
+        @Html.DropDownListFor(b => b.Vanzare_id, new SelectList(Model.SellerList, "Value", "Text"), "Choose a seller", new { @class = "form-control" })
+        @Html.ValidationMessageFor(b => b.Vanzare_id, "", new { @class = "text-danger" })
+        <br />
+        <br />
+
+        @Html.LabelFor(b => b.CategoriesList, "Choose categories:")
+        <br />
+        for (int i = 0; i < Model.CategoriesList.Count(); i++)
+        {
+            @Html.HiddenFor(b => b.CategoriesList[i].Id)
+            @Html.HiddenFor(b => b.CategoriesList[i].Name)
+            @Html.CheckBoxFor(b => b.CategoriesList[i].Checked)
+            @Html.DisplayFor(b => b.CategoriesList[i].Name)
+            <br />
+        }
+
+        <button class="btn btn-primary" type="submit">Add Item</button>
+    }
+</body>
+
+

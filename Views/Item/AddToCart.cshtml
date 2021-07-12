@@ -1,0 +1,47 @@
+﻿@*
+@{
+    ViewBag.Title = "Cart";
+}
+
+<body style="background-image: url('https://cutewallpaper.org/21/computer-shop-background/45+-Web-Store-Wallpaper-on-WallpaperSafari.jpg'); background-repeat: no-repeat; background-size: cover ">
+    <h2>@ViewBag.Title</h2>
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in ViewBag.Items)
+            {
+                <div class="col-lg-4" style=" margin-top: 50px;">
+                    <div class="panel-body" ; style="background-color: rgba(240,255,255,0.95)">
+                        @Html.Label("Name", "Name:")
+                        <br />
+                        <p><b>@item.name </b></p>
+
+                        @Html.Label("Price", "Price:")
+                        <br />
+                        <p>@item.price LEI</p>
+
+
+
+                        @using (Html.BeginForm(actionName: "Details", controllerName: "Item", method: FormMethod.Get, routeValues: new { id = item.Item_id }))
+                        {
+                            <button class="btn btn-primary" ; style="background-color:orangered" style="color:black">Details</button>}
+                    </div>
+                </div>      }
+        </div>
+    </div>
+    @*Html.ActionLink("Add an item", "New", null, new { @class = "my-class" })*@
+@*
+    <br />
+
+
+    @using (Html.BeginForm(actionName: "New", controllerName: "Item", method: FormMethod.Get))
+    {
+        if (this.User.IsInRole("Admin"))
+        {
+            <button class="btn btn-primary" ; style="background-color:orangered" style="color:black">Add an item</button>
+        }
+    }
+
+
+</body>
+*@
